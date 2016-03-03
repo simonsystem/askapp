@@ -47,8 +47,8 @@
             </div>
         </div>
         {% for answer in answers %}
-        <div class="answer {% if answer.pk == question.accepted_answer.pk %}accepted{% endif %}">
-            <h2>{% if answer.pk == question.accepted_answer.pk %}Akzeptierte {% endif %}Anwort:</h2>
+        <div class="answer{{answer.is_accepted|yesno:' accepted,' }}">
+            <h2>{{answer.is_accepted|yesno:'Akzeptierte ,'}}Anwort:</h2>
             <div class="text">
                 {{ answer.text }}
             </div>
