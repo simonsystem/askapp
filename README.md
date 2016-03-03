@@ -1,6 +1,6 @@
 # AskApp
 
-Django Demoapplication: Question-Answer Pages.
+Django demo application: question answer forum.
 
 ## Usage
 
