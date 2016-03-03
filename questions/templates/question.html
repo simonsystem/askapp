@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Questions</title>
+    <style rel="stylesheet" type="text/css" media="screen">
+        body {
+            background-color: #EEE;
+        }
+        .page {
+            width: 800px;
+            margin: auto;
+        }
+        .question, .answer {
+            margin: 10px 0;
+            padding: 10px 10px 10px 10px;
+            border: 1px solid #EEE;
+        }
+        .question:hover, .answer:hover {
+            border: 1px solid #000;: 10px 0;
+        }
+        .question {
+            background-color: #88F;
+        }
+        .answer, .text {
+            background-color: #FFF;
+        }
+        .accepted {
+            background-color: #8F8;
+        }
+        .text {
+            margin: 5px 0 0 30px;
+            padding: 10px;
+        }
+        h1, h2 {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="question">
+            <h1>Frage:</h1>
+            <div class="text">
+                {{ question.text }}
+            </div>
+        </div>
+        {% for answer in answers %}
+        <div class="answer {% if answer.pk == question.accepted_answer.pk %}accepted{% endif %}">
+            <h2>{% if answer.pk == question.accepted_answer.pk %}Akzeptierte {% endif %}Anwort:</h2>
+            <div class="text">
+                {{ answer.text }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
