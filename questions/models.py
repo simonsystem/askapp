@@ -1,4 +1,7 @@
 from django.db import models
+from django.template.defaultfilters import truncatechars
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext as _
 
 """
 Model holding the question with a set of answers. One can be the accepted answer.
@@ -11,8 +14,10 @@ class Question(models.Model):
     Extra validation of current model instance.
     """
     def clean(self):
-        if self.accepted_answer.question.pk is not self.pk:
-            raise ValidationError("Accepted answer does not answer this question")
+        if self.has_accepted_answer and self.accepted_answer.question.pk is not self.pk:
+            raise ValidationError({
+                "accepted_answer": _("Accepted answer does not answer this question")
+            })
     """
     Returns true if one of all answers is acccepted, false otherwise.
     """
@@ -28,7 +33,7 @@ class Question(models.Model):
         return cls.objects.filter(accepted_answer__isnull=True)
 
     def __str__(self):
-        return self.text[:20]
+        return truncatechars(self.text,20)
 
 """
 Model holding the answer to a corresponding question.
@@ -55,4 +60,4 @@ class Answer(models.Model):
     is_accepted = property(_get_accepted, _set_accepted)
 
     def __str__(self):
-        return self.text[:20]
+        return truncatechars(self.text,20)

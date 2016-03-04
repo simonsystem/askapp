@@ -1,9 +1,10 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset=utf-8 />
-    <title>Questions</title>
-    <style rel="stylesheet" type="text/css" media="screen">
+    <meta charset="utf-8" />
+    <title>{% trans 'Question' %}: {{ question.text|truncatechars:20}}</title>
+    <style type="text/css">
         body {
             background-color: #EEE;
         }
@@ -13,7 +14,7 @@
         }
         .question, .answer {
             margin: 10px 0;
-            padding: 10px 10px 10px 10px;
+            padding: 10px;
             border: 1px solid #EEE;
         }
         .question:hover, .answer:hover {
@@ -35,23 +36,19 @@
         h1, h2 {
             margin: 0;
         }
-
     </style>
 </head>
 <body>
     <div class="page">
         <div class="question">
-            <h1>Frage:</h1>
-            <div class="text">
-                {{ question.text }}
-            </div>
+            <h1>{% trans 'Question' %}:</h1>
+            <p class="text">{{ question.text }}</p>
         </div>
         {% for answer in answers %}
-        <div class="answer{{answer.is_accepted|yesno:' accepted,' }}">
-            <h2>{{answer.is_accepted|yesno:'Akzeptierte ,'}}Anwort:</h2>
-            <div class="text">
-                {{ answer.text }}
-            </div>
+        <div class="answer{{ answer.is_accepted|yesno:' accepted,' }}">
+            <h2>
+                {% with answer.is_accepted|yesno:'Accepted answer,Answer' as title %}{% trans title %}{% endwith %}:</h2>
+            <p class="text">{{ answer.text }}</p>
         </div>
         {% endfor %}
     </div>
