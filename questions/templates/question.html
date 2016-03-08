@@ -18,7 +18,7 @@
             border: 1px solid #EEE;
         }
         .question:hover, .answer:hover {
-            border: 1px solid #000;: 10px 0;
+            border: 1px solid #000;
         }
         .question {
             background-color: #88F;
@@ -47,7 +47,10 @@
         {% for answer in answers %}
         <div class="answer{{ answer.is_accepted|yesno:' accepted,' }}">
             <h2>
-                {% with answer.is_accepted|yesno:'Accepted answer,Answer' as title %}{% trans title %}{% endwith %}:</h2>
+                {% with answer.is_accepted|yesno:'Accepted answer,Answer' as title %}
+                {% trans title %}:
+                {% endwith %}
+            </h2>
             <p class="text">{{ answer.text }}</p>
         </div>
         {% endfor %}
